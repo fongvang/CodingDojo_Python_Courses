@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+<style>
+.name{
+    width: 500px;
+    margin-left: 37px;
+}
+.textarea{
+    display: inline-block;
+    vertical-align: top;
+    height: 140px;
+    width: 500px;
+}
+.desc-label{
+    display: inline-block;
+    vertical-align: top;
+}
+#add-container form button{
+    display: block;
+    width: 80px;
+    height: 35px;
+    margin-top: 10px;
+    margin-left: 509px;
+}
+#courses-container{
+    border: 1px solid black;
+    width: 800px;
+    margin-left: 10px;
+    margin-top: 20px;
+}
+.width220{
+    width: 210px;
+}
+.width175{
+    width: 310px;
+}
+.width180{
+    width: 180px;
+}
+.width100{
+    width: 100px;
+}
+</style>
+</head>
+<body>
+    <h2>Add a new course</h2>
+
+ <!-- flash messages field -->
+ {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+ {% endif %}
+
+    <div id="add-container">
+        <form action="/new" method="POST">
+            {%csrf_token%}
+            <p>Name: <input class="name" type="text" name="name"></p>
+            <!-- <p>Description: <input type="text" name="description"></p> -->
+            <label class="desc-label" for="description">Description:</label>
+            <textarea name="description" id="description" cols="62" rows="10"></textarea>
+            <button>Add</button>
+        </form>
+    </div>
+
+    <div id="courses-container">
+        <table>
+            <thead>
+                <td class="width220">Courses</td>
+                <td class="width175">Description</td>
+                <td class="width180">Date Added</td>
+                <td class="width100">Actions</td>
+            </thead>
+            {% for course in courses %}
+            <tr>
+                <input type="hidden" value="{{course.id}}">
+                <td>{{course.name}}</td>
+                <td>{{course.description}}</td>
+                <td>{{course.created_at}}</td>
+                <td><a href="/remove/{{course.id}}">remove</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+</body>
+</html>

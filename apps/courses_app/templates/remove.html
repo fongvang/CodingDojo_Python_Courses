@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+<style>
+#container{
+    border: 1px solid black;
+    width: 700px;
+    margin: 0 auto; 
+}
+#container h2{
+    text-align: center;
+}
+#container p{
+    margin-left: 10px;
+}
+#container form{
+    display: inline-block;
+    margin-bottom: 20px;
+}
+#no{
+    margin-left: 10px;
+    width: 75px;
+    height: 40px;
+    background: royalblue;
+    color: white;
+}
+#yes{
+    margin-left: 10px;
+    background-color: red;
+    color: white;
+    height: 40px;
+    width: 225px;
+}
+</style>
+
+</head>
+<body>
+    
+<div id="container">
+        <h2>Are you sure you want to delete the following course?</h2>
+        <p>Name: {{query.name}}</p>
+        <p>Description: {{query.description}}</p>
+    
+    <form action="/" method="">
+        {%csrf_token%}
+        <button id="no">No</button>
+    </form>
+    
+    <form action="/remove/{{query.id}}/delete" method="POST">
+        {%csrf_token%}
+        <input type="hidden" value="{{query.id}}">
+        <button id="yes">Yes! I want to delete this</button>
+    </form>
+</div>
+
+
+</body>
+</html>
